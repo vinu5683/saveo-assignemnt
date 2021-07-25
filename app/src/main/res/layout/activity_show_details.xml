@@ -45,7 +45,7 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,9 +72,9 @@
                     <ImageView
                         android:id="@+id/ivSelectedImage"
                         android:layout_width="match_parent"
-                        android:transitionName="imageTransition"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
+                        android:transitionName="imageTransition"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -185,9 +185,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:letterSpacing="0.1"
+                    android:letterSpacing="0.05"
                     android:text="BOOK NOW"
-                    android:textColor="@color/bg_color"
+                    android:textColor="#016E6D"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -216,7 +216,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvSynopsisCaption" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

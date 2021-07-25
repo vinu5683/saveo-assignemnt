@@ -67,8 +67,8 @@ class ShowDetailsActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setData() {
-
         try {
+            //get the readable data of time date
             mTvDateTimeInfo.text = StringUtils.getFormatedText(
                 selectedShowModel.premiered!!,
                 selectedShowModel.averageRuntime!!
@@ -79,11 +79,11 @@ class ShowDetailsActivity : AppCompatActivity() {
             mRbRating.rating = rating
             mTvRating.text = String.format("%.1f", rating)
 
+            //if summary field not null then convert the html content to text
             if (selectedShowModel.summary != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     mTvSummary.text = Html.fromHtml(
-                        selectedShowModel.summary,
-                        Html.FROM_HTML_MODE_COMPACT
+                        selectedShowModel.summary, Html.FROM_HTML_MODE_COMPACT
                     )
                 } else {
                     mTvSummary.text = Html.fromHtml(selectedShowModel.summary);

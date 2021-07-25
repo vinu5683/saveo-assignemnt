@@ -2,13 +2,13 @@ package com.avenger.saveoassignment.ui
 
 import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Pair
 import android.view.View
 import android.widget.ImageView
-import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +25,7 @@ import com.avenger.saveoassignment.repository.SampleRepository
 import com.avenger.saveoassignment.showmodel.ShowModel
 import com.avenger.saveoassignment.viewmodels.SampleListViewModel
 import com.avenger.saveoassignment.viewmodels.SampleListViewModelFactory
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity(), ItemListenerInterface {
@@ -37,7 +38,8 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
     private lateinit var repository: SampleRepository
     private lateinit var sampleViewModel: SampleListViewModel
     private lateinit var mRvList: RecyclerView
-    private lateinit var mSvMainActivity: ScrollView
+    private lateinit var mSvMainActivity: NestedScrollView
+    private lateinit var linearProgressBar: LinearProgressIndicator
 
     private var pageValue: Int = 1;
 
@@ -50,6 +52,8 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
     }
 
     private fun getResponseAndPost() {
+
+        //for top carousel
         sampleViewModel.getAllResponse("game of").observe(this, {
             if (it != null && it.isNotEmpty()) {
                 carouselList.clear()
@@ -57,6 +61,8 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
                 setViewPagerForScrollCarousel()
             }
         })
+
+        //for main recycler view
         sampleViewModel.getByPage(pageValue).observe(this, {
             if (it != null && it.isNotEmpty()) {
                 showList.clear()
@@ -68,7 +74,9 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
     }
 
     private fun setRecyclerView() {
-        mRvList.layoutManager = GridLayoutManager(this, 3)
+        val mLayoutManager = GridLayoutManager(this, 3)
+
+        mRvList.layoutManager = mLayoutManager
         showListAdapter = ShowListAdapter(showList, this)
         mRvList.adapter = showListAdapter
         showListAdapter.notifyDataSetChanged()
@@ -86,6 +94,7 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
     private fun initViews() {
         viewPager2 = findViewById(R.id.viewPager2)
         mRvList = findViewById(R.id.rvListMainActivity)
+        linearProgressBar = findViewById(R.id.linearProgressBar)
     }
 
     private fun setViewPagerForScrollCarousel() {
@@ -102,6 +111,7 @@ class MainActivity : AppCompatActivity(), ItemListenerInterface {
             val r = 1 - abs(position)
             page.scaleY = 0.85f + r * 0.15f
         }
+
         viewPager2.setPageTransformer(compositePageTransformer)
         adapter.notifyDataSetChanged()
     }

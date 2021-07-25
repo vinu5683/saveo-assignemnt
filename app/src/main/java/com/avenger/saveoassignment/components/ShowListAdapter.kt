@@ -38,7 +38,7 @@ class ShowListViewHolder(
     fun setData(showModel: ShowModel) {
         Glide.with(itemView.context).load(showModel.image?.medium).into(mImageView)
         mImageView.setOnClickListener {
-            itemListenerInterface.onItemClick(showModel,mImageView)
+            itemListenerInterface.onItemClick(showModel, mImageView)
         }
     }
 
